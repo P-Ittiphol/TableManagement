@@ -1,0 +1,112 @@
+@model TableManagement.ViewModels.ReservationViewModel
+
+<div class="row">
+
+    <!-- 🔵 ฝั่งซ้าย แสดงโต๊ะ -->
+    <div class="col-md-7">
+        <h4>เลือกโต๊ะ</h4>
+
+        @foreach (var zoneGroup in Model.Tables.GroupBy(t => t.Zone))
+        {
+            <h5 class="mt-3">โซน @zoneGroup.Key</h5>
+
+            <div class="row">
+                @foreach (var table in zoneGroup)
+                {
+                    <div class="col-md-3 mb-2">
+                        <div class="card text-center p-2
+                            @(table.Status == "ว่าง" ? "bg-success text-white" : "bg-danger text-white")">
+
+                            <strong>@table.TableCode</strong>
+
+                            @if (table.Status == "ว่าง")
+                            {
+                                <button class="btn btn-light btn-sm mt-2"
+                                        onclick="selectTable(@table.Id, '@table.TableCode')">
+                                    จองโต๊ะ
+                                </button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+
+    <!-- 🔴 ฝั่งขวา ฟอร์มจอง -->
+    <div class="col-md-5">
+        <div id="reservationForm" style="display:none;">
+            <h4>จองโต๊ะ <span id="selectedTableCode"></span></h4>
+
+            <form asp-action="Create" method="post">
+                
+                <input type="hidden" asp-for="Reservation.TableId" id="selectedTableId" />
+                <input type="hidden" asp-for="Reservation.ReservationDate" />
+
+                <div class="form-group">
+                    <label>ชื่อลูกค้า</label>
+                    <input asp-for="Reservation.CustomerName" class="form-control" />
+                    <span asp-validation-for="Reservation.CustomerName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>เบอร์โทร</label>
+                    <input asp-for="Reservation.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Reservation.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-2">
+                    ยืนยันการจอง
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+    function selectTable(id, code) {
+        document.getElementById("TableId").value = id;
+        document.getElementById("SelectedTable").value = code;
+    }
+
+     function selectTable(tableId, tableCode) {
+        document.getElementById("selectedTableId").value = tableId;
+        document.getElementById("selectedTableCode").innerText = tableCode;
+        document.getElementById("reservationForm").style.display = "block";
+    }
+
+
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Validate แบบ realtime ตอนพิมพ์
+            $("input").on("keyup", function () {
+                $(this).valid();
+            });
+
+        });
+    </script>
+
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: 'สำเร็จ!',
+                text: '@Html.Raw(TempData["Success"])',
+                icon: 'success',
+                confirmButtonText: 'ตกลง'
+            });
+        </script>
+    }
+}
+

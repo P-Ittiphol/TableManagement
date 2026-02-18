@@ -1,0 +1,28 @@
+@model TableManagement.Models.Table
+
+<h2>เพิ่มโต๊ะใหม่</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="TableCode" class="form-label">หมายเลขโต๊ะ</label>
+        <input asp-for="TableCode" class="form-control" />
+        <span asp-validation-for="TableCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Zone" class="form-label">โซน</label>
+        <select asp-for="Zone" class="form-select">
+            <option value="A">โซน A</option>
+            <option value="B">โซน B</option>
+        </select>
+        <span asp-validation-for="Zone" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">บันทึก</button>
+    <a asp-action="Index" class="btn btn-secondary">ยกเลิก</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

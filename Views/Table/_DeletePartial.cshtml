@@ -1,0 +1,11 @@
+@model TableManagement.Models.Table
+
+<h4>ยืนยันการลบ</h4>
+
+<p>คุณต้องการลบโต๊ะ @Model.TableCode ใช่หรือไม่?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">ลบ</button>
+    <button type="button" class="btn btn-secondary" onclick="closePanel()">ยกเลิก</button>
+</form>

@@ -1,0 +1,26 @@
+@model TableManagement.Models.Table
+
+<h4>เพิ่มโต๊ะใหม่</h4>
+
+<form asp-action="Create" method="post" id="createForm">
+    <div class="mb-3">
+        <label class="form-label">รหัสโต๊ะ</label>
+        <input asp-for="TableCode" class="form-control" required />
+        <span asp-validation-for="TableCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">โซน</label>
+        <select asp-for="Zone" class="form-select" required>
+            <option value="">-- เลือกโซน --</option>
+            <option value="A">โซน A</option>
+            <option value="B">โซน B</option>
+        </select>
+        <span asp-validation-for="Zone" class="text-danger"></span>
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-success">บันทึก</button>
+    <button type="button" class="btn btn-secondary" onclick="closePanel()">ยกเลิก</button>
+</form>

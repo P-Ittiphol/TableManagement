@@ -1,0 +1,42 @@
+@model TableManagement.Models.Table
+
+<h4>แก้ไขโต๊ะ</h4>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <!-- รหัสโต๊ะ -->
+    <div class="mb-3">
+        <label class="form-label">รหัสโต๊ะ</label>
+        <select asp-for="TableCode"
+                asp-items="ViewBag.TableCodeList"
+                class="form-select">
+        </select>
+    </div>
+
+    <!-- โซน -->
+    <div class="mb-3">
+        <label class="form-label">โซน</label>
+        <select asp-for="Zone" class="form-select">
+            @foreach (var zone in ViewBag.Zones)
+            {
+                <option value="@zone"
+                        selected="@(zone == Model.Zone)">
+                    @zone
+                </option>
+            }
+        </select>
+    </div>
+
+    <!-- สถานะ -->
+    <div class="mb-3">
+    <label class="form-label">สถานะ</label>
+    <select asp-for="Status"
+            asp-items="ViewBag.StatusList"
+            class="form-select">
+    </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">บันทึก</button>
+    <button type="button" class="btn btn-secondary" onclick="closePanel()">ยกเลิก</button>
+</form>

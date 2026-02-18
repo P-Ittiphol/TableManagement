@@ -1,0 +1,24 @@
+@model TableManagement.Models.Table
+
+<h2>Edit Table</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Table Code</label>
+        <input asp-for="TableCode" />
+    </div>
+
+    <div>
+        <label>Status</label>
+        <select asp-for="Status">
+            <option value="ว่าง">ว่าง</option>
+            <option value="มีคนจองแล้ว">มีคนจองแล้ว</option>
+        </select>
+    </div>
+
+    <button type="submit">Update</button>
+</form>
+
+<a asp-action="Index">Back</a>

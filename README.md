@@ -27,10 +27,10 @@ Table Management System เป็นระบบสำหรับจัดก�
 
 ## 🛠 Tech Stack
 
-- .NET 9
+- .NET 9.0.310
 - ASP.NET Core MVC
 - Entity Framework Core 9
-- PostgreSQL
+- PostgreSQL 18.1
 - Npgsql EF Core Provider
 - Bootstrap 5
 - jQuery Validation
@@ -70,7 +70,8 @@ dotnet ef database update
 
 5️⃣ Run project
 dotnet run
-
+ระบบจอง : http://localhost:5048/Reservation
+ระบบการจัดการโต๊ะร้านอาหาร : http://localhost:5048/Table
 
 ---
 
